@@ -1,9 +1,13 @@
 import Logo from "../components/UI/Logo";
 import Profile from "../assets/icons/profile.png";
-
+import { OverLord } from "../Provider";
 import { Link } from "react-router-dom";
-
+import { useContext } from 'react';
+import LogoutButton from '../components/UI/Buttons/Logout';
 const Navbar = () => {
+
+  const { user, isLoggedIn } = useContext(OverLord)
+
   const MenuBtns = [
     { name: "HOME", 
       path: "/" 
@@ -16,11 +20,11 @@ const Navbar = () => {
       name: "ABOUT",
       path: "/about",
     },
-    {
-      name: "PROFILE",
-      path: "/profile",
-    }
-  ]
+  ];
+  if (isLoggedIn) {
+    MenuBtns.push({ name: "PROFILE", path: "/profile" });
+  }
+ 
 
   const gameDropdownBtns = [
     { name: "Popular Games", path: "/games/popular" },
@@ -29,12 +33,37 @@ const Navbar = () => {
   ];
 
 
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>, userId: string) => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("application/json");
+    const game = JSON.parse(data);
+  
+  
+  
+    try {
+      const res = await fetch(`http://localhost:3001/api/userGames/${user?.id}/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(game),
+      });
+      console.log(game)
+  
+      if (!res.ok) throw new Error("Failed to add game");
+      console.log("Game added to profile!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
 
 
   return (
     <nav className="fixed flex items-center p-2 top-0 w-full z-40 bg-[rgba(39, 97, 185, 0.8)] backdrop-blur-lg border-b border-white/10 shadow-lg">
       <div>
         <Logo />
+        <LogoutButton/>
       </div>
 
       <div className="flex-grow flex justify-center items-center">
@@ -50,7 +79,7 @@ const Navbar = () => {
                   </button>
                 </Link>
 
-                {/* Dropdown här */}
+                
                 <div className="absolute hidden group-hover:block bg-gray-200 min-w-[160px] shadow-lg rounded z-10">
                   {gameDropdownBtns.map((dropdownBtn, idx) => (
                     <Link
@@ -75,11 +104,19 @@ const Navbar = () => {
         ))}
       </div>
 
-      <div className="flex items-center justify-end hover:scale-105 transition-transform duration-300">
-        <Link to="/profile">
-          <img src={Profile} alt="" />
-        </Link>
-      </div>
+      <div
+  className="flex items-center justify-end hover:scale-105 transition-transform duration-300"
+  onDragOver={(e) => e.preventDefault()}
+  onDrop={(e) => {
+    if(user?.id) handleDrop(e, user.id)
+  }}
+>
+  <p className="absolute right-25">{(user?.firstname ?? "Not Signed in") + " " + (user?.lastname ?? "")}</p>
+  <Link to="/profile">
+    <img src={Profile} alt="profile" />
+  </Link>
+</div>
+
     </nav>
   );
 };
