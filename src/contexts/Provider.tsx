@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { UserContextType, User } from "./Types";
+import { UserContextType, UserData } from "../Types";
 
 export const OverLord = createContext<UserContextType>({
   user: null,
@@ -9,7 +9,7 @@ export const OverLord = createContext<UserContextType>({
 });
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
 
-  const login = (userData:User) => { 
+  const login = (userData:UserData) => { 
     setUser(userData);
     setIsLoggedIn(true);
     localStorage.setItem("user", JSON.stringify(userData)); 

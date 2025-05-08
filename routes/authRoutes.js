@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'E-postadressen är already registrerad fan' });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ firstname, lastname, password: hashedPassword, email });
+    const newUser = new User({ firstname, lastname, password: hashedPassword, email});
     await newUser.save();
     res.status(201).json({ message: 'Användare registrerad' });
   } catch (error) {

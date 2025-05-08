@@ -1,12 +1,15 @@
 import Logo from "../components/UI/Logo";
 import Profile from "../assets/icons/profile.png";
-import { OverLord } from "../Provider";
+import { OverLord } from "../contexts/Provider";
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import LogoutButton from '../components/UI/Buttons/Logout';
+import { useGameContext } from "../contexts/GameContext";
+
 const Navbar = () => {
 
   const { user, isLoggedIn } = useContext(OverLord)
+  const { myGames, myActiveGames, myCompletedGames, fetchGames } = useGameContext()
 
   const MenuBtns = [
     { name: "HOME", 
@@ -34,6 +37,7 @@ const Navbar = () => {
 
 
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>, userId: string) => {
+   
     e.preventDefault();
     const data = e.dataTransfer.getData("application/json");
     const game = JSON.parse(data);
@@ -55,6 +59,7 @@ const Navbar = () => {
     } catch (err) {
       console.error(err);
     }
+    fetchGames()
   };
   
 
@@ -70,7 +75,7 @@ const Navbar = () => {
         {MenuBtns.map((btn, index) => (
           <div 
           key={index} 
-          className="relative group">
+          className="relative group drop-shadow-[0_1px_1px_rgba(255,255,255,1)]">
             {btn.name === "GAMES" ? (
               <div>
                 <Link to={btn.path}>
@@ -95,7 +100,7 @@ const Navbar = () => {
 
             ) : (
               <Link to={btn.path}>
-                <button className="text-gray-600 text-[1.2rem] hover:cursor-pointer hover:underline font-bold py-2 px-4 rounded mx-2">
+                <button className="text-gray-600 text-[1.2rem]  hover:cursor-pointer hover:underline font-bold py-2 px-4 rounded mx-2">
                   {btn.name}
                 </button>
               </Link>
@@ -111,7 +116,12 @@ const Navbar = () => {
     if(user?.id) handleDrop(e, user.id)
   }}
 >
-  <p className="absolute right-25">{(user?.firstname ?? "Not Signed in") + " " + (user?.lastname ?? "")}</p>
+  <div className="flex flex-col p-5">
+  <p >{(user?.firstname ?? "Not Signed in") + " " + (user?.lastname ?? "")}</p>
+  <p>Owned:{myGames.length + myCompletedGames.length}</p>
+  <p>Active:{myActiveGames.length}</p>
+  <p>Completed:{myCompletedGames.length}</p>
+  </div>
   <Link to="/profile">
     <img src={Profile} alt="profile" />
   </Link>

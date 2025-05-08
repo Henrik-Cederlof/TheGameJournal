@@ -10,6 +10,25 @@ const Games = () => {
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [isDragging, setIsDragging] = useState(false)
 
+
+  const fetchPlatforms = async () => {
+    const query = `fields name, summary, cover.url; where cover != null & summary != null; sort popularity desc; limit 100;`;
+    try {
+      const response = await fetch("/api/platforms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+
+      const data = await response.json();
+      setGames(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Fel vid hämtning av spel:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchRandomGames = async () => {
     const randomOffset = Math.floor(Math.random() * 1000);
     const query = `
@@ -21,7 +40,7 @@ const Games = () => {
     `;
 
     try {
-      const response = await fetch("http://localhost:3001/api/games", {
+      const response = await fetch("/api/games", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
@@ -52,7 +71,7 @@ const Games = () => {
         <p>Laddar...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-40">
-          {games.map((game) => (
+          {games.map((game, gameId) => (
             <div 
             draggable
             onDragStart={(e) => {
@@ -60,20 +79,21 @@ const Games = () => {
               setIsDragging(true)
             }}
             className="cursor-grab"
-            key={game.id} 
+            key={game.gameId} 
             onClick={() => setSelectedGame(game)}
             
             >
               <GameCard game={{
-                id: game.id,
+                gameId: game.gameId,
                 name: game.name,
                 cover: game.cover,
                 summary: game.summary,
                 platforms: game.platforms,
-                completionist: game.completionist,
+                isCompleted: game.isCompleted,
+                IsActive: game.IsActive,
                 addedDate: game.addedDate,
                 personalNote: game.personalNote,
-                _id: game._id
+                _id: game._id,
               }} {...game} />
             </div>
           ))}

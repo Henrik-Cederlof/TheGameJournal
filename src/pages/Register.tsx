@@ -4,6 +4,7 @@ import { RegisterData } from "../Types";
 
 
 
+
 const Register = () => {
 
   const { register, handleSubmit, watch, reset } = useForm({
@@ -20,7 +21,7 @@ const Register = () => {
   const onSubmit = async  (data: RegisterData ) => {
     
     try {
-      const response = await fetch("http://localhost:3001/api/register", {
+      const response = await fetch("http://localhost:3001/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -28,6 +29,7 @@ const Register = () => {
           lastname: data.lastName,
           email: data.email,
           password: data.password
+          
         })
     });
 
@@ -36,8 +38,8 @@ const Register = () => {
       alert(`Fel: ${result.message}`);
     } else {
       alert(result.message);
-      reset(); // Reset the form fields after successful registration
-      window.location.href = "/profile"; // Redirect to login page after successful registration
+      reset(); 
+      window.location.href = "/profile";
     }
 
     } catch (error) {

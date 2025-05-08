@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import {OverLord} from "../../../Provider";
+import {OverLord} from "../../../contexts/Provider";
 import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {

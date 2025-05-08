@@ -26,8 +26,8 @@ const SideScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return(
     <div
       ref={scrollRef}
-      className="flex flex-row no-scrollbar w-screen pb-4 hover:bg-black/20 transition-colors duration-300 ease-in-out overflow-x-scroll"
-      >
+      className="grid grid-rows-1 auto-cols-[minmax(200px,1fr)] py-5 grid-flow-col gap-15 no-scrollbar w-screen pb-4 hover:bg-black/20 transition-colors duration-300 ease-in-out overflow-x-scroll"
+>
         {children}
       </div>
   );

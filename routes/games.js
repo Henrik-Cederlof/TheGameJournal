@@ -21,11 +21,11 @@ router.post('/games', async (req, res) => {
       const accessToken = await fetchAccessToken();
       
       const query = `
-        search "${searchTerm}";
-        fields name, summary, cover.url;
-        where cover != null & summary != null;
-        limit 20;
-      `;
+  search "${searchTerm}";
+  fields name, summary, cover.url, platforms.name, platforms.abbreviation, platforms.platform_logo.url;
+  where cover != null & summary != null;
+  limit 20;
+`;
       
       const data = await fetchFromIGDB('games', query, accessToken);
       res.json(data);

@@ -1,9 +1,12 @@
 import { useContext, useState } from "react";
-import { OverLord } from "../Provider";
+import { OverLord } from "../contexts/Provider";
 import ToastMessage from "../components/UI/ToastMessage";
 import { useNavigate } from "react-router-dom";
+import { UserData } from "../Types";
 
-const Login = () => {
+const Login = (userData: UserData) => {
+  console.log("LOGGAR USERDATA", userData); // 👈 logga detta
+
   const { login, user } = useContext(OverLord);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,13 +16,15 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3001/api/login", {
+    const response = await fetch("http://localhost:3001/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     }); 
 
     const data = await response.json();
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.user.id);
     console.log("Login response:", data);
     
     if (response.ok) {

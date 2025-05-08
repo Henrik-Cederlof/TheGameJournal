@@ -1,26 +1,24 @@
 import mongoose from "mongoose";
-
 const GameSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
+  gameId: { type: Number, required: true },
   name: { type: String, required: true },
-  cover: { 
-    url: { type: String, required: true }, 
+  rating: { type: Number, default: 0 },
+  cover: {
+    url: { type: String, required: true },
   },
-  completionist: { type: Boolean, default: false },
+  isCompleted: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: false },
   personalNote: { type: String, default: "" },
   addedDate: { type: Date, default: Date.now },
-  _id: { type: mongoose.Schema.Types.ObjectId, auto: true }
-});
-const CompletedSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
-  name: { type: String, required: true },
-  cover: { 
-    url: { type: String, required: true }, 
-  },
-  completionist: { type: Boolean, default: true },
-  personalNote: { type: String, default: "" },
-  addedDate: { type: Date, default: Date.now },
-  _id: { type: mongoose.Schema.Types.ObjectId, auto: true }
+  platforms: [
+    {
+      name: { type: String, required: true },
+      abbreviation: { type: String, required: true },
+      platform_logo: {
+        url: { type: String, required: true },
+      },
+    },
+  ],
 });
 
 const userSchema = new mongoose.Schema({
@@ -29,7 +27,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   myGames: [GameSchema],
-  myCompletedGames: [CompletedSchema]
+  myActiveGames: [GameSchema],
+  myCompletedGames: [GameSchema]
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

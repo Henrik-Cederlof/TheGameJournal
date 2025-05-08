@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { OverLord } from "../Provider";
+import { OverLord } from  "../contexts/Provider";
 
 const Home = () => {
 
   const { isLoggedIn, user } = useContext(OverLord);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen ">
       {isLoggedIn ? (
         // Visa detta om användaren är inloggad
         <div>

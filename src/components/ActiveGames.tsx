@@ -7,8 +7,8 @@ import ToggleComplete from "./UI/Buttons/CompleteToggle"
 import { useGameContext } from "../contexts/GameContext"
 
 
-const OwnedGames = () => {
-  const { myGames, fetchGames} = useGameContext();
+const ActiveGames = () => {
+  const { myActiveGames, fetchGames} = useGameContext();
   const [open, setOpen] = useState(false);
 
 
@@ -20,7 +20,7 @@ const OwnedGames = () => {
       onClick={() => setOpen(!open)}
       className="flex items-center no-scrollbar justify-between bg-gray-200 px-4 py-3 cursor-pointer rounded-t-xl"
     >
-      <h2 className="font-semibold text-gray-800 text-center">Owned Games</h2>
+      <h2 className="font-semibold text-gray-800 text-center">Games Active</h2>
       <ChevronRight
         className={`transition-transform duration-300 ${
           open ? "rotate-90" : "rotate-0"
@@ -32,12 +32,13 @@ const OwnedGames = () => {
         open ? "max-h-full py-4  border-t-0 rounded-b-xl" : "max-h-0"
       }`}>
     <SideScroll >
-    {myGames.map((game) => (
+    {myActiveGames.map((game) => (
       <div key={game.gameId} 
       className="flex-shrink-0 w-64 p-4 m-1 hover:z-10 cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
                  <GameCard game={{
               gameId: game.gameId,
               name: game.name,
+              rating: game.rating,
               cover: game.cover,
               summary: game.summary,
               platforms: game.platforms,
@@ -67,4 +68,4 @@ const OwnedGames = () => {
 
 }
 
-export default OwnedGames;
+export default ActiveGames;

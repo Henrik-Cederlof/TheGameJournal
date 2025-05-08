@@ -5,7 +5,6 @@ import authRoutes from "./routes/authRoutes.js"; // Importera routes för autent
 import gamesRoutes from "./routes/games.js"; // Importera routes för spel
 import connectDB from "./mongoDB.js"; // Importera connectDB-funktionen
 import userGameRouter from "./routes/userGames.js";
-
 // Laddar in miljövariabler från .env-filen
 dotenv.config(); 
 // Serverns instans av express
@@ -21,8 +20,7 @@ connectDB();
 // Routes för att hantera API-anrop. Se mapp "routes"
 app.use("/api", gamesRoutes); 
 app.use("/api/userGames", userGameRouter)
-app.use("/api", authRoutes);
-
+app.use("/api/auth", authRoutes);
 
  // Starta och lyssna till servern på port 3001   
 app.listen(3001, () => { 

@@ -1,21 +1,25 @@
+import { ObjectId } from "mongoose";
 
 export type Game = {
-  id: string;
+  gameId: string;
   name: string;
+  rating?: number;
   cover?: {
     url: string;
   };
   summary?: string;
   platforms?: string[];
-  completionist: boolean,
+  isCompleted: boolean,
+  IsActive: boolean,
   personalNote: string,
   addedDate: Date,
-  _id: string,
+  _id: ObjectId;
 };
 
 export type UserData = {
-  id: number;
-  name: string;
+  id: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   createdAt: string;
@@ -30,16 +34,9 @@ export interface RegisterData {
   confirmPassword: string;
 }
 
-export type User = {
-  id: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-};
-
 export type UserContextType = {
-  user: User | null;
-  login: (userData: User) => void;
+  user: UserData | null;
+  login: (userData: UserData) => void;
   logout: () => void;
   isLoggedIn: boolean;
 };

@@ -1,38 +1,34 @@
-import { useState } from "react"
-import GameCard from "./UI/GameCard"
-import { ChevronRight } from "lucide-react"
-import SideScroll from "./Functions/SideScroll"
-import DeleteGame from "./UI/Buttons/DeleteGame"
-import ToggleComplete from "./UI/Buttons/CompleteToggle"
-import { useGameContext } from "../contexts/GameContext"
+import { ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import GameCard from './UI/GameCard';
+import { useGameContext } from '../contexts/GameContext';
+import SideScroll from './Functions/SideScroll';
+import DeleteGame from './UI/Buttons/DeleteGame';
 
-
-const OwnedGames = () => {
-  const { myGames, fetchGames} = useGameContext();
+const CompletedGames = () => {
+  const { myCompletedGames, fetchGames } = useGameContext();  
   const [open, setOpen] = useState(false);
-
-
-
+  
 
   return (
-    <div className="w-full mx-auto">
+    <div className="flex flex-col justify-center w-full mx-auto">
     <div
       onClick={() => setOpen(!open)}
-      className="flex items-center no-scrollbar justify-between bg-gray-200 px-4 py-3 cursor-pointer rounded-t-xl"
+      className="flex items-center justify-start w-200 bg-linear-to-r from-cyan-500 to-blue-500 px-4 py-3 cursor-pointer rounded-t-xl"
     >
-      <h2 className="font-semibold text-gray-800 text-center">Owned Games</h2>
+      <h2 className="font-semibold text-gray-800 text-center">Games Completed</h2>
       <ChevronRight
-        className={`transition-transform duration-300 ${
+        className={`transition-transform duration-1500 ${
           open ? "rotate-90" : "rotate-0"
         }`}
       />
     </div>
 
-    <div className={`flex flex-row overflow-auto transition-all duration-300  px-4 mr-20 ml-20 ${
+    <div className={`flex flex-row overflow-auto transition-all duration-300  px-4 hover:bg-black/20 ${
         open ? "max-h-full py-4  border-t-0 rounded-b-xl" : "max-h-0"
       }`}>
-    <SideScroll >
-    {myGames.map((game) => (
+   <SideScroll >
+    {myCompletedGames.map((game) => (
       <div key={game.gameId} 
       className="flex-shrink-0 w-64 p-4 m-1 hover:z-10 cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
                  <GameCard game={{
@@ -49,11 +45,7 @@ const OwnedGames = () => {
             }} {...game} />
     
         <p>Completed: {game.isCompleted ? "✔" : "❌"}</p>
-        <ToggleComplete
-              id={game.gameId}
-              completionist={game.isCompleted}
-              
-            />
+      
         <DeleteGame
         gameId={game.gameId}
         onDelete={fetchGames}/>
@@ -64,7 +56,6 @@ const OwnedGames = () => {
   </div>
   </div>
   )
-
 }
 
-export default OwnedGames;
+export default CompletedGames;

@@ -18,7 +18,6 @@ const GameModal: React.FC<P> = ({ game, onClose }) => {
         <img src={game.cover?.url?.replace("t_thumb", "t_cover_big")} alt={game.name} className="w-full rounded-md mb-4" />
         <h2 className="text-2xl font-bold mb-2">{game.name}</h2>
         <p className="text-gray-700">{game.summary}</p>
-        <p className="text-gray-500 mt-2">ID: {game.id}</p>
         <p className="text-gray-500 mt-2">Platforms: {game.platforms}</p>
       </div>
     </div>
