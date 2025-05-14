@@ -1,5 +1,4 @@
 import { Game } from "../../Types";
-
 const GameCard = ({ game }: { game: Game }) => {
   const highResCoverUrl = game.cover?.url.replace(/t_thumb/, "t_cover_big");
 

@@ -11,14 +11,11 @@ const ActiveGames = () => {
   const { myActiveGames, fetchGames} = useGameContext();
   const [open, setOpen] = useState(false);
 
-
-
-
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full mx-auto mt-5">
     <div
       onClick={() => setOpen(!open)}
-      className="flex items-center no-scrollbar justify-between bg-gray-200 px-4 py-3 cursor-pointer rounded-t-xl"
+      className="flex items-center justify-start w-300 bg-linear-to-r from-gray-200 to-gray-300 px-4 py-3 cursor-pointer rounded-t-xl"
     >
       <h2 className="font-semibold text-gray-800 text-center">Games Active</h2>
       <ChevronRight

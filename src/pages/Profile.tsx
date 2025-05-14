@@ -24,36 +24,19 @@ const Profile = () => {
   return (
     <div className="flex flex-col w-screen h-screen items-center p-4 mt-40">
 
-      <h1 className="text-4xl font-bold mb-4 text-center">My Completionist Collection</h1>
+      <h1 className="text-4xl text-gray-600 font-bold mb-4 text-start">My Completionist Collection</h1>
 
      
     <OwnedGames/>
     <ActiveGames/>
     <CompletedGames/>
 
-    <div className="w-full mx-auto">
-      <div
-        onClick={() => setOpen(!open)}
-        className="flex items-center justify-between bg-gray-200 px-4 py-3 cursor-pointer rounded-t-xl"
-      >
-        <h2 className="font-semibold text-gray-800 text-center">Completed Games ✔</h2>
-        <ChevronRight
-          className={`transition-transform duration-300 ${
-            open ? "rotate-90" : "rotate-0"
-          }`}
-        />
-      </div>
+   
      
-      <div
-        className={`flex flex-row overflow-auto transition-all duration-300  px-4 hover:bg-black/20 ${
-          open ? "max-h-96 py-4  border-t-0 rounded-b-xl" : "max-h-0"
-        }`}
-      >
-     
-      </div>
+    
     </div>
 
-    </div>
+    
   );
 }
 export default Profile;

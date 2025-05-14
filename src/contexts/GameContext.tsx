@@ -69,8 +69,9 @@ const toggleComplete = async (gameId: string) => {
       const response = await fetch(`/api/userGames/${gameId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user.id }), 
+        body: JSON.stringify({ userId: user.id, isCompleted: true }), 
       });
+      
 
 
       if (!response.ok) {

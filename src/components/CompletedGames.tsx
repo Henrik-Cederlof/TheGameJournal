@@ -11,14 +11,14 @@ const CompletedGames = () => {
   
 
   return (
-    <div className="flex flex-col justify-center w-full mx-auto">
+    <div className="w-full mx-auto mt-5">
     <div
       onClick={() => setOpen(!open)}
-      className="flex items-center justify-start w-200 bg-linear-to-r from-cyan-500 to-blue-500 px-4 py-3 cursor-pointer rounded-t-xl"
+      className="flex items-center justify-start w-300 bg-linear-to-r from-gray-200 to-gray-300 px-4 py-3 cursor-pointer rounded-t-xl"
     >
       <h2 className="font-semibold text-gray-800 text-center">Games Completed</h2>
       <ChevronRight
-        className={`transition-transform duration-1500 ${
+        className={`transition-transform duration-300 ${
           open ? "rotate-90" : "rotate-0"
         }`}
       />
@@ -30,7 +30,7 @@ const CompletedGames = () => {
    <SideScroll >
     {myCompletedGames.map((game) => (
       <div key={game.gameId} 
-      className="flex-shrink-0 w-64 p-4 m-1 hover:z-10 cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
+      className="flex-shrink-0 w-64 p-4 m-1  cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
                  <GameCard game={{
               gameId: game.gameId,
               name: game.name,

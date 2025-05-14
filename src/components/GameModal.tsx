@@ -1,4 +1,5 @@
 import { Game } from "../Types";
+import Rating from "./Rating";
 interface P {
   game: Game;
   onClose: () => void;
@@ -7,7 +8,7 @@ interface P {
 
 const GameModal: React.FC<P> = ({ game, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-100">
       <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-lg relative">
         <button
           onClick={onClose}
@@ -19,6 +20,7 @@ const GameModal: React.FC<P> = ({ game, onClose }) => {
         <h2 className="text-2xl font-bold mb-2">{game.name}</h2>
         <p className="text-gray-700">{game.summary}</p>
         <p className="text-gray-500 mt-2">Platforms: {game.platforms}</p>
+
       </div>
     </div>
   );

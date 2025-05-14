@@ -1,24 +1,45 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import GameCard from "./UI/GameCard"
 import { ChevronRight } from "lucide-react"
 import SideScroll from "./Functions/SideScroll"
 import DeleteGame from "./UI/Buttons/DeleteGame"
 import ToggleComplete from "./UI/Buttons/CompleteToggle"
 import { useGameContext } from "../contexts/GameContext"
+import { Game } from "../Types"
+import UserGameModal from "./UserGameModal"
+import { OverLord } from "../contexts/Provider"
 
 
 const OwnedGames = () => {
+  const { user } = useContext(OverLord)
   const { myGames, fetchGames} = useGameContext();
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [open, setOpen] = useState(false);
 
+  const handleSaveNote = async (note: string) => {
+    if (selectedGame) {
+      try {
+          await fetch(`/api/userGames/${user?.id}/myGames/${selectedGame.gameId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ personalNote: note }),
+        });
 
+        fetchGames();
+      } catch (error) {
+        console.error("Gick inte att spara P-Note i från OWNEDGAMES", error);
+      }
+    }
+  };
 
 
   return (
     <div className="w-full mx-auto">
     <div
       onClick={() => setOpen(!open)}
-      className="flex items-center no-scrollbar justify-between bg-gray-200 px-4 py-3 cursor-pointer rounded-t-xl"
+      className="flex items-center justify-start w-300 bg-linear-to-r from-gray-200 to-gray-300 px-4 py-3 cursor-pointer rounded-t-xl"
     >
       <h2 className="font-semibold text-gray-800 text-center">Owned Games</h2>
       <ChevronRight
@@ -34,7 +55,8 @@ const OwnedGames = () => {
     <SideScroll >
     {myGames.map((game) => (
       <div key={game.gameId} 
-      className="flex-shrink-0 w-64 p-4 m-1 hover:z-10 cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
+      onClick={() => setSelectedGame(game)}
+      className="flex-shrink-0 w-64 ml-5 mr-5 hover:z-10 cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
                  <GameCard game={{
               gameId: game.gameId,
               name: game.name,
@@ -48,20 +70,19 @@ const OwnedGames = () => {
               _id: game._id,
             }} {...game} />
     
-        <p>Completed: {game.isCompleted ? "✔" : "❌"}</p>
-        <ToggleComplete
-              id={game.gameId}
-              completionist={game.isCompleted}
-              
-            />
-        <DeleteGame
-        gameId={game.gameId}
-        onDelete={fetchGames}/>
+ 
       </div>
       
     ))}
   </SideScroll>
   </div>
+        {selectedGame && (
+        <UserGameModal
+          game={selectedGame}
+          onClose={() => setSelectedGame(null)}
+          onSave={handleSaveNote}
+        />
+      )}
   </div>
   )
 

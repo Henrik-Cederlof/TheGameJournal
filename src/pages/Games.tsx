@@ -31,13 +31,13 @@ const Games = () => {
 
   const fetchRandomGames = async () => {
     const randomOffset = Math.floor(Math.random() * 1000);
-    const query = `
-      fields name, summary, cover.url; 
-      where cover != null & summary != null; 
-      sort popularity desc;
-      offset ${randomOffset}; 
-      limit 100;
-    `;
+      const query = `
+        fields name, summary, cover.url; 
+        where cover != null & summary != null; 
+        sort popularity desc;
+        offset ${randomOffset}; 
+        limit 100;
+      `;
 
     try {
       const response = await fetch("/api/games", {
@@ -68,7 +68,7 @@ const Games = () => {
       <SearchInput onSearch={handleSearch} />
  
       {loading ? (
-        <p>Laddar...</p>
+        <p>LOADING GAMES PLEASE WAIT...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-40">
           {games.map((game, gameId) => (
@@ -98,6 +98,7 @@ const Games = () => {
             </div>
           ))}
         </div>
+        
       )}
 
       {selectedGame && (
