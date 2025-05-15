@@ -10,25 +10,6 @@ const Games = () => {
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [isDragging, setIsDragging] = useState(false)
 
-
-  const fetchPlatforms = async () => {
-    const query = `fields name, summary, cover.url; where cover != null & summary != null; sort popularity desc; limit 100;`;
-    try {
-      const response = await fetch("/api/platforms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
-
-      const data = await response.json();
-      setGames(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error("Fel vid hämtning av spel:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const fetchRandomGames = async () => {
     const randomOffset = Math.floor(Math.random() * 1000);
       const query = `

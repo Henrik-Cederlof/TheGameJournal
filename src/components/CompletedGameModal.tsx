@@ -2,11 +2,11 @@ import { Game } from "../Types";
 import DeleteGame from "./UI/Buttons/DeleteGame";
 import ReadOnlyRating from "./ReadOnlyRating.";
 
-const CompletedGameModal = ({ game, onClose, onSave }: { game: Game; onClose: () => void; onSave: (note: string) => void }) => {
+const CompletedGameModal = ({ game, onClose }: { game: Game; onClose: () => void; onSave: (note: string) => void }) => {
 
 
   function fetchGames(): void {
-    throw new Error("Function not implemented.");
+    throw new Error("not implemented.");
   }
 
   return (

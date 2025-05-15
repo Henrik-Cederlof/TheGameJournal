@@ -3,12 +3,11 @@ import { useState } from 'react';
 import GameCard from './UI/GameCard';
 import { useGameContext } from '../contexts/GameContext';
 import SideScroll from './Functions/SideScroll';
-import DeleteGame from './UI/Buttons/DeleteGame';
 import CompletedGameModal from './CompletedGameModal';
 import { Game } from '../Types';
 
 const CompletedGames = () => {
-  const { myCompletedGames, fetchGames } = useGameContext();  
+  const { myCompletedGames } = useGameContext();  
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [open, setOpen] = useState(false);
   
@@ -59,7 +58,7 @@ const CompletedGames = () => {
         <CompletedGameModal
             game={selectedGame}
             onClose={() => setSelectedGame(null)} 
-            onSave={function (note: string): void {
+            onSave={function (): void {
             }}        />
             )}
   </div>

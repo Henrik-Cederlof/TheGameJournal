@@ -62,7 +62,7 @@ const handleSaveRating = (gameId: string, rating: number) => {
             <ToggleComplete
             id={game.gameId}
             completionist={game.isCompleted}/>
-          <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+          <button onClick={handleSave} className="px-4 py-2 bg-gray-500 text-white rounded">Save</button>
           <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">Close</button>
         </div>
       </div>

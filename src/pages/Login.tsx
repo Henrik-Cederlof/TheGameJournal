@@ -36,11 +36,11 @@ const Login = (userData: UserData) => {
     
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-300">
       <h1 className="text-3xl font-bold mb-4">Login
         <span className="text-gray-600"> to your Gaming Journal</span>
       </h1>
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-80">
+      <form onSubmit={handleLogin} className="bg-white/60 p-6 rounded shadow-md w-80">
         <div className="mb-4">
           <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
           <input
@@ -64,7 +64,7 @@ const Login = (userData: UserData) => {
    
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 px-4 rounded">Login
+          className="bg-gray-500 text-white py-2 px-4 rounded hover:cursor-pointer hover:bg-gray-200">Login
         </button>
       </form>
       <p className="mt-4">Don't have an account? <a href="/register" className="text-blue-500">Register</a></p>
