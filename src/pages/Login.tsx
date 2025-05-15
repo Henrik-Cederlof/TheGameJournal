@@ -1,16 +1,14 @@
 import { useContext, useState } from "react";
 import { OverLord } from "../contexts/Provider";
-import ToastMessage from "../components/UI/ToastMessage";
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../Types";
 
 const Login = (userData: UserData) => {
-  console.log("LOGGAR USERDATA", userData); // 👈 logga detta
+  console.log("LOGGAR USERDATA", userData); // logga detta
 
-  const { login, user } = useContext(OverLord);
+  const { login } = useContext(OverLord);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [toast, setToast] = useState<{title: string, message: string, type: "success" | "error" | "info"} | null>(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {

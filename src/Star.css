@@ -34,3 +34,17 @@ input[type="radio"] {
 .rating>label:hover~label {
     color: orange !important;
 }
+
+.rating.read-only {
+  display: inline-block;
+}
+
+.rating.read-only .star {
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-right: 2px;
+}
+
+.rating.read-only .star.filled {
+  color: gold;
+}

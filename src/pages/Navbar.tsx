@@ -27,9 +27,6 @@ const Navbar = () => {
   if (isLoggedIn) {
     MenuBtns.push({ name: "PROFILE", path: "/profile" });
   }
- 
-
-
 
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>, userId: string) => {
     e.preventDefault();
@@ -39,7 +36,7 @@ const Navbar = () => {
       const res = await fetch(`http://localhost:3001/api/userGames/${user?.id}/add`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify(game),
       });

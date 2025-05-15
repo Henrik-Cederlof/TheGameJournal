@@ -4,9 +4,12 @@ import GameCard from './UI/GameCard';
 import { useGameContext } from '../contexts/GameContext';
 import SideScroll from './Functions/SideScroll';
 import DeleteGame from './UI/Buttons/DeleteGame';
+import CompletedGameModal from './CompletedGameModal';
+import { Game } from '../Types';
 
 const CompletedGames = () => {
   const { myCompletedGames, fetchGames } = useGameContext();  
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [open, setOpen] = useState(false);
   
 
@@ -30,6 +33,7 @@ const CompletedGames = () => {
    <SideScroll >
     {myCompletedGames.map((game) => (
       <div key={game.gameId} 
+      onClick={() => setSelectedGame(game)}
       className="flex-shrink-0 w-64 p-4 m-1  cursor-pointer transition-transform duration-600 ease-in-out hover:scale-105">
                  <GameCard game={{
               gameId: game.gameId,
@@ -44,15 +48,20 @@ const CompletedGames = () => {
               _id: game._id,
             }} {...game} />
     
-        <p>Completed: {game.isCompleted ? "✔" : "❌"}</p>
+        <p className='text-center scale-120 font-bold'>Completed: {game.isCompleted ? "✅" : "❌"}</p>
       
-        <DeleteGame
-        gameId={game.gameId}
-        onDelete={fetchGames}/>
+     
       </div>
       
     ))}
   </SideScroll>
+    {selectedGame && (
+        <CompletedGameModal
+            game={selectedGame}
+            onClose={() => setSelectedGame(null)} 
+            onSave={function (note: string): void {
+            }}        />
+            )}
   </div>
   </div>
   )

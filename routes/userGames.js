@@ -108,7 +108,7 @@ userGameRouter.put("/:userId/myGames/:gameId", async (req, res) => {
     if (game) {
       game.personalNote = personalNote; // Spara den personliga anteckningen
       await user.save();  // Spara ändringarna
-      res.status(200).send({ message: "Personal note updated successfully" });
+      res.status(200).send({ message: "Personal note updated" });
     } else {
       res.status(404).send({ error: "Game not found" });
     }
@@ -122,6 +122,7 @@ userGameRouter.put("/:userId/myGames/:gameId", async (req, res) => {
 userGameRouter.put("/:userId/myGames/:gameId/rating", async (req, res) => {
   const { userId, gameId } = req.params;
   const { rating } = req.body;
+  console.log("Rating:", rating);
 
   try {
     const user = await User.findById(userId);
@@ -133,7 +134,7 @@ userGameRouter.put("/:userId/myGames/:gameId/rating", async (req, res) => {
     game.rating = rating; // Uppdatera betyget
     await user.save(); // Spara ändringarna
 
-    res.status(200).send({ message: "Rating updated successfully" });
+    res.status(200).send({ message: "Rating updated" });
   } catch (error) {
     console.error("Error updating rating:", error);
     res.status(500).send({ error: "Failed to update rating" });

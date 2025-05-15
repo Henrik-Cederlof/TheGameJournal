@@ -12,7 +12,6 @@ const LogoutButton = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-
   
   return (
     <button

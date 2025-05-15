@@ -15,9 +15,9 @@ const Rating = ( {gameId, saveRating}: RatingP ) => {
     };
 
     return (
-                    <div className="rating">
+        <div className="rating">
            {[5, 4, 3, 2, 1].map((value) => (
-    <>
+        <>
         <input
             key={`input-${value}`}
             id={`star-${value}-${gameId}`}

@@ -11,16 +11,13 @@ const DeleteGame = ({ gameId, onDelete }: DeleteGameProps) => {
 
   const handleDelete = async () => {
     if (!user) return;
-
     try {
       const res = await fetch(`http://localhost:3001/api/userGames/${user.id}/delete/${gameId}`, {
         method: "DELETE",
       });
-
       if (!res.ok) {
         throw new Error("Failed to delete game");
       }
-
       console.log("Game deleted!");
       onDelete(); 
     } catch (error) {
