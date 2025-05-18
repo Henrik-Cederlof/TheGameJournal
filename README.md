@@ -14,3 +14,14 @@ Just go to the section "games" and then either search for a game och find someth
   lucide-react@^0.503.0 mongoose@^8.13.2 node-fetch@^3.3.2
   react@^19.0.0 react-dom@^19.0.0 react-hook-form@^7.55.0 tailwindcss@^4.1.3
 
+# MongoDB
+- Download MongoDB Compass, that will help alot with viewing the data thats in the DB.
+- inside the mongoDB.js file change the connection route to your local mongoDB name and adress.
+
+# STARTING
+When you've done everything above.
+Inside the terminal run the commands.
+npm run dev
+node server.js 
+# If you see this message "MongoDB server connected!! Yay"
+The sever is up and running.
