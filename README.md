@@ -21,7 +21,7 @@ Just go to the section "games" and then either search for a game och find someth
 # STARTING
 When you've done everything above.
 Inside the terminal run the commands.
-npm run dev
-node server.js 
+- npm run dev
+- node server.js 
 # If you see this message "MongoDB server connected!! Yay"
 The sever is up and running.
