@@ -8,7 +8,7 @@ This is an SPA project where users can signup, login and
 add games to their profile by dragging a game and drop it on the profile image.
 Just go to the section "games" and then either search for a game och find something in the random 100.
 
-#To get this up and running
+# To get this up and running
 - npm install @tailwindcss/vite@^4.1.3 bcrypt@^5.1.1
   cors@^2.8.5 dotenv@^16.5.0 express@^5.1.0 jsonwebtoken@^9.0.2
   lucide-react@^0.503.0 mongoose@^8.13.2 node-fetch@^3.3.2
