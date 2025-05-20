@@ -25,7 +25,9 @@ const CompletedGameModal = ({ game, onClose }: { game: Game; onClose: () => void
         <ReadOnlyRating rating={game.rating ?? 0} />
         </div>
         <div className="flex justify-end space-x-2">
-        <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded hover:cursor-pointer hover:bg-gray-500">Close</button>
+        <button 
+        onClick={onClose} 
+        className="px-4 py-2 bg-gray-300 rounded hover:cursor-pointer hover:bg-gray-500">Close</button>
 
         </div>
       </div>
